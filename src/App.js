@@ -254,7 +254,7 @@ const imagesList = [
 class App extends Component {
   state = {
     mainImage:
-      'https://assets.ccbp.in/frontend/react-js/match-game/orange-thumbnail-img.png',
+      'https://assets.ccbp.in/frontend/react-js/match-game/orange-img.png',
 
     category1: 'FRUIT',
     score: 0,
@@ -282,6 +282,9 @@ class App extends Component {
 
       console.log(randomImage)
       this.setState({mainImage: randomImage})
+    } else {
+      clearInterval(this.uniqueId)
+      this.setState(prevState => ({matched: !prevState.matched}))
     }
   }
 
@@ -320,7 +323,7 @@ class App extends Component {
           alt="trophy"
           className="trophy-image"
         />
-        <h1>Your Score</h1>
+        <p>YOUR SCORE</p>
         <h1>{score}</h1>
         <button
           className="play-again-button"
@@ -344,7 +347,7 @@ class App extends Component {
 
     return (
       <div className="app-container">
-        <div className="header">
+        <ul className="header">
           <img
             src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
             alt="website logo"
@@ -353,26 +356,24 @@ class App extends Component {
           <div>
             <div className="score-timer-container">
               <p className="score">
-                Score <span>{score}</span>
+                Score: <span>{score}</span>
               </p>
               <img
                 src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png"
                 alt="timer"
                 className="timer"
               />
-              <p>
-                <span>{time}</span>sec
-              </p>
+              <p>{`${time} sec`}</p>
             </div>
           </div>
-        </div>
+        </ul>
 
         {matched ? (
           this.getGameResult()
         ) : (
           <div className="bottom-container">
             <div className="main-image-container">
-              <img src={mainImage} className="main-image" alt="" />
+              <img src={mainImage} className="main-image" alt="match" />
             </div>
             <div className="tab-container">
               <ul className="tab-list">
@@ -386,13 +387,15 @@ class App extends Component {
               </ul>
             </div>
             <div className="thumbnails-container">
-              {filteredList.map(eachImage => (
-                <Thumbnail
-                  eachImage={eachImage}
-                  key={eachImage.id}
-                  onClickThumnailImage={this.onClickThumnailImage}
-                />
-              ))}
+              <ul>
+                {filteredList.map(eachImage => (
+                  <Thumbnail
+                    eachImage={eachImage}
+                    key={eachImage.id}
+                    onClickThumnailImage={this.onClickThumnailImage}
+                  />
+                ))}
+              </ul>
             </div>
           </div>
         )}

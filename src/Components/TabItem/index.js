@@ -8,9 +8,15 @@ const TabItem = props => {
     changeTab(tabId)
   }
   return (
-    <button className="button" onClick={onClickChangeThumbnails} type="button">
-      {displayText}
-    </button>
+    <li>
+      <button
+        className="button"
+        onClick={onClickChangeThumbnails}
+        type="button"
+      >
+        {displayText}
+      </button>
+    </li>
   )
 }
 

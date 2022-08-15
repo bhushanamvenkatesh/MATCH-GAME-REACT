@@ -64,6 +64,7 @@ p {
   display: flex;
   flex-direction: row;
   color: white;
+  list-style: none;
 }
 
 .tab-container {

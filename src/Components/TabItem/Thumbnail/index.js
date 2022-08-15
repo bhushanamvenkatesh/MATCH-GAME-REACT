@@ -2,17 +2,19 @@ import './index.css'
 
 const Thumbnail = props => {
   const {eachImage, onClickThumnailImage} = props
-  const {thumbnailUrl} = eachImage
+  const {thumbnailUrl, imageUrl} = eachImage
+
   const onClickThumbnail = () => {
-    onClickThumnailImage(thumbnailUrl)
+    onClickThumnailImage(imageUrl)
   }
+
   return (
     <button
       className="thumbnail-button"
       onClick={onClickThumbnail}
       type="button"
     >
-      <img src={thumbnailUrl} alt="" className="thumbnail-image" />
+      <img src={thumbnailUrl} alt="thumbnail" className="thumbnail-image" />
     </button>
   )
 }
