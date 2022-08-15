@@ -9,13 +9,15 @@ const Thumbnail = props => {
   }
 
   return (
-    <button
-      className="thumbnail-button"
-      onClick={onClickThumbnail}
-      type="button"
-    >
-      <img src={thumbnailUrl} alt="thumbnail" className="thumbnail-image" />
-    </button>
+    <li>
+      <button
+        className="thumbnail-button"
+        onClick={onClickThumbnail}
+        type="button"
+      >
+        <img src={thumbnailUrl} alt="thumbnail" className="thumbnail-image" />
+      </button>
+    </li>
   )
 }
 

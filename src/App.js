@@ -260,23 +260,28 @@ class App extends Component {
     score: 0,
     matched: false,
     time: 60,
+    initialAlt: 'match',
   }
 
-  uniqueId = setInterval(() => {
-    const {time} = this.state
-    if (time === 0) {
-      clearInterval(this.uniqueId)
-      this.setState(prevState => ({matched: !prevState.matched}))
-    } else {
-      this.setState(prevState => ({time: prevState.time - 1}))
-    }
-  }, 1000)
+  componentDidMount() {
+    this.uniqueId = setInterval(() => {
+      const {time} = this.state
+      if (time === 0) {
+        clearInterval(this.uniqueId)
+        this.setState(prevState => ({matched: !prevState.matched}))
+      } else {
+        this.setState(prevState => ({time: prevState.time - 1}))
+      }
+    }, 1000)
+  }
 
   onClickThumnailImage = imageUrl => {
-    console.log(imageUrl)
     const {mainImage} = this.state
     if (imageUrl === mainImage) {
-      this.setState(prevState => ({score: prevState.score + 1}))
+      this.setState(prevState => ({
+        score: prevState.score + 1,
+        initialAlt: 'match',
+      }))
       const randomNum = Math.ceil(Math.random() * imagesList.length - 1)
       const randomImage = imagesList[randomNum].imageUrl
 
@@ -311,7 +316,7 @@ class App extends Component {
       matched: false,
       time: 60,
     }))
-    this.uniqueId()
+    this.componentDidMount()
   }
 
   getGameResult = () => {
@@ -342,18 +347,21 @@ class App extends Component {
   }
 
   render() {
-    const {mainImage, matched, score, time} = this.state
+    const {mainImage, matched, score, time, initialAlt} = this.state
     const filteredList = this.getFilteredImages()
 
     return (
       <div className="app-container">
         <ul className="header">
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
-            alt="website logo"
-            className="logo-image"
-          />
-          <div>
+          <li>
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
+              alt="website logo"
+              className="logo-image"
+            />
+          </li>
+
+          <li>
             <div className="score-timer-container">
               <p className="score">
                 Score: <span>{score}</span>
@@ -365,7 +373,7 @@ class App extends Component {
               />
               <p>{`${time} sec`}</p>
             </div>
-          </div>
+          </li>
         </ul>
 
         {matched ? (
@@ -373,7 +381,7 @@ class App extends Component {
         ) : (
           <div className="bottom-container">
             <div className="main-image-container">
-              <img src={mainImage} className="main-image" alt="match" />
+              <img src={mainImage} className="main-image" alt={initialAlt} />
             </div>
             <div className="tab-container">
               <ul className="tab-list">
@@ -387,7 +395,7 @@ class App extends Component {
               </ul>
             </div>
             <div className="thumbnails-container">
-              <ul>
+              <ul className="thumbnail-images-list">
                 {filteredList.map(eachImage => (
                   <Thumbnail
                     eachImage={eachImage}
