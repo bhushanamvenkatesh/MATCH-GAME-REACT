@@ -81,7 +81,7 @@ p {
   height: 600px;
   width: 500px;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   padding: 20px;
   flex-direction: column;

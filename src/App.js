@@ -282,7 +282,7 @@ class App extends Component {
         score: prevState.score + 1,
         initialAlt: 'match',
       }))
-      const randomNum = Math.ceil(Math.random() * imagesList.length - 1)
+      const randomNum = Math.ceil(Math.random() * imagesList.length)
       const randomImage = imagesList[randomNum].imageUrl
 
       console.log(randomImage)
